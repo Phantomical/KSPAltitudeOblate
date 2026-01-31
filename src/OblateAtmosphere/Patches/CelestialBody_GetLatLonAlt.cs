@@ -17,9 +17,7 @@ namespace OblateAtmosphere.Patches
             if (__instance.scaledElipRadMult.z == 1.0)
                 return true;
 
-            Vector3d rPos = __instance.BodyFrame.WorldToLocal(
-                (worldPos - __instance.position).xzy
-            );
+            Vector3d rPos = __instance.BodyFrame.WorldToLocal((worldPos - __instance.position).xzy);
             double magnitude = rPos.magnitude;
             rPos /= magnitude;
 
@@ -32,9 +30,7 @@ namespace OblateAtmosphere.Patches
                 lon = 0.0;
 
             double latRad = lat * (Math.PI / 180.0);
-            alt =
-                magnitude
-                - OblateUtils.GetSeaLevelRadius(__instance, latRad);
+            alt = magnitude - OblateUtils.GetSeaLevelRadius(__instance, latRad);
             return false;
         }
     }

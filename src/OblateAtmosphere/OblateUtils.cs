@@ -4,10 +4,7 @@ namespace OblateAtmosphere
 {
     public static class OblateUtils
     {
-        public static double GetSeaLevelRadius(
-            CelestialBody body,
-            double latitudeRad
-        )
+        public static double GetSeaLevelRadius(CelestialBody body, double latitudeRad)
         {
             double f = body.scaledElipRadMult.z;
             if (f == 1.0)
@@ -21,10 +18,7 @@ namespace OblateAtmosphere
             double sin = Math.Sin(latitudeRad);
             double cos2 = cos * cos;
             double sin2 = sin * sin;
-            return Math.Sqrt(
-                (a2 * a2 * cos2 + b2 * b2 * sin2)
-                    / (a2 * cos2 + b2 * sin2)
-            );
+            return Math.Sqrt((a2 * a2 * cos2 + b2 * b2 * sin2) / (a2 * cos2 + b2 * sin2));
         }
 
         public static double GetSeaLevelRadiusFromLocalDir(

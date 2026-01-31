@@ -17,20 +17,15 @@ namespace OblateAtmosphere.Patches
                 return false;
             }
 
-            Vector3d relSurfaceNVector =
-                __instance.mainBody.GetRelSurfaceNVector(
-                    __instance.latitude,
-                    __instance.longitude
-                );
-            double surfaceHeight =
-                __instance.mainBody.pqsController.GetSurfaceHeight(
-                    relSurfaceNVector
-                );
-            double latRad = __instance.latitude * UtilMath.Deg2Rad;
-            double seaLevelR = OblateUtils.GetSeaLevelRadius(
-                __instance.mainBody,
-                latRad
+            Vector3d relSurfaceNVector = __instance.mainBody.GetRelSurfaceNVector(
+                __instance.latitude,
+                __instance.longitude
             );
+            double surfaceHeight = __instance.mainBody.pqsController.GetSurfaceHeight(
+                relSurfaceNVector
+            );
+            double latRad = __instance.latitude * UtilMath.Deg2Rad;
+            double seaLevelR = OblateUtils.GetSeaLevelRadius(__instance.mainBody, latRad);
             __result = surfaceHeight - seaLevelR;
             return false;
         }

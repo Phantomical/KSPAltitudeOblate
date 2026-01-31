@@ -3,10 +3,7 @@ using HarmonyLib;
 
 namespace OblateAtmosphere.Patches
 {
-    [HarmonyPatch(
-        typeof(CelestialBody),
-        nameof(CelestialBody.GetLatLonAltOrbital)
-    )]
+    [HarmonyPatch(typeof(CelestialBody), nameof(CelestialBody.GetLatLonAltOrbital))]
     public static class CelestialBody_GetLatLonAltOrbital
     {
         public static bool Prefix(
@@ -33,9 +30,7 @@ namespace OblateAtmosphere.Patches
                 lon = 0.0;
 
             double latRad = lat * (Math.PI / 180.0);
-            alt =
-                magnitude
-                - OblateUtils.GetSeaLevelRadius(__instance, latRad);
+            alt = magnitude - OblateUtils.GetSeaLevelRadius(__instance, latRad);
             return false;
         }
     }

@@ -3,10 +3,7 @@ using HarmonyLib;
 
 namespace OblateAtmosphere.Patches
 {
-    [HarmonyPatch(
-        typeof(CelestialBody),
-        nameof(CelestialBody.TerrainAltitude)
-    )]
+    [HarmonyPatch(typeof(CelestialBody), nameof(CelestialBody.TerrainAltitude))]
     public static class CelestialBody_TerrainAltitude
     {
         public static bool Prefix(
@@ -26,17 +23,10 @@ namespace OblateAtmosphere.Patches
                 return false;
             }
 
-            Vector3d relSurfaceNVector =
-                __instance.GetRelSurfaceNVector(latitude, longitude);
-            double surfaceHeight =
-                __instance.pqsController.GetSurfaceHeight(
-                    relSurfaceNVector
-                );
+            Vector3d relSurfaceNVector = __instance.GetRelSurfaceNVector(latitude, longitude);
+            double surfaceHeight = __instance.pqsController.GetSurfaceHeight(relSurfaceNVector);
             double latRad = latitude * UtilMath.Deg2Rad;
-            double seaLevelR = OblateUtils.GetSeaLevelRadius(
-                __instance,
-                latRad
-            );
+            double seaLevelR = OblateUtils.GetSeaLevelRadius(__instance, latRad);
             double num = surfaceHeight - seaLevelR;
 
             if (!allowNegative && num < 0.0)

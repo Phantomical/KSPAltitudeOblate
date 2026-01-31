@@ -23,13 +23,8 @@ namespace OblateAtmosphere.Patches
                 return true;
 
             double latRad = lat * UtilMath.Deg2Rad;
-            double seaLevelR = OblateUtils.GetSeaLevelRadius(
-                __instance,
-                latRad
-            );
-            __result =
-                __instance.GetRelSurfaceNVector(lat, lon)
-                * (seaLevelR + alt);
+            double seaLevelR = OblateUtils.GetSeaLevelRadius(__instance, latRad);
+            __result = __instance.GetRelSurfaceNVector(lat, lon) * (seaLevelR + alt);
             return false;
         }
     }
