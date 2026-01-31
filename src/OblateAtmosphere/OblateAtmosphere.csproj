@@ -16,6 +16,14 @@
         <PackageReference Include="KSPBuildTools" Version="0.0.4" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Reference Include="0Harmony">
+            <HintPath>$(KSPRoot)\GameData\000_Harmony\0Harmony.dll</HintPath>
+            <CKANIdentifier>Harmony2</CKANIdentifier>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+
     <PropertyGroup>
         <GameDataOutDir>$(RepoRootPath)\GameData\OblateAtmosphere</GameDataOutDir>
     </PropertyGroup>

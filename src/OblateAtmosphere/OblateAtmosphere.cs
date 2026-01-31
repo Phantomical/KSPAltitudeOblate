@@ -1,3 +1,4 @@
+using HarmonyLib;
 using UnityEngine;
 
 namespace OblateAtmosphere
@@ -5,9 +6,16 @@ namespace OblateAtmosphere
     [KSPAddon(KSPAddon.Startup.Flight, false)]
     public class OblateAtmosphere : MonoBehaviour
     {
+        private static Harmony _harmony;
+
         public void Start()
         {
-            Debug.Log("[OblateAtmosphere] Loaded");
+            if (_harmony == null)
+            {
+                _harmony = new Harmony("OblateAtmosphere");
+                _harmony.PatchAll();
+                Debug.Log("[OblateAtmosphere] Harmony patches applied");
+            }
         }
     }
 }
