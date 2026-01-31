@@ -7,7 +7,7 @@
         <TargetFramework>net4.8</TargetFramework>
         <LangVersion>latest</LangVersion>
 
-        <BinariesOutputRelativePath>GameData\OblateAtmosphere</BinariesOutputRelativePath>
+        <BinariesOutputRelativePath>GameData\AltitudeOblate</BinariesOutputRelativePath>
         <GenerateKSPAssemblyAttribute>true</GenerateKSPAssemblyAttribute>
         <GenerateKSPAssemblyDependencyAttributes>true</GenerateKSPAssemblyDependencyAttributes>
     </PropertyGroup>
@@ -34,7 +34,7 @@
     </ItemGroup>
 
     <PropertyGroup>
-        <GameDataOutDir>$(RepoRootPath)\GameData\OblateAtmosphere</GameDataOutDir>
+        <GameDataOutDir>$(RepoRootPath)\GameData\AltitudeOblate</GameDataOutDir>
     </PropertyGroup>
 
     <Target Name="GameDataPostClean" AfterTargets="Clean">

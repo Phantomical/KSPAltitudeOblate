@@ -1,6 +1,6 @@
 using System;
 
-namespace OblateAtmosphere;
+namespace AltitudeOblate;
 
 public static class OblateUtils
 {

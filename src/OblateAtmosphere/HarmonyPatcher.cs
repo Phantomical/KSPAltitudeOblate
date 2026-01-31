@@ -1,14 +1,14 @@
 using HarmonyLib;
 using UnityEngine;
 
-namespace OblateAtmosphere;
+namespace AltitudeOblate;
 
 [KSPAddon(KSPAddon.Startup.Instantly, once: true)]
-public class OblateAtmosphere : MonoBehaviour
+public class AltitudeOblate : MonoBehaviour
 {
     public void Awake()
     {
-        var harmony = new Harmony("OblateAtmosphere");
+        var harmony = new Harmony("AltitudeOblate");
         harmony.PatchAll();
     }
 }

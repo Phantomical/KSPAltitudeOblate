@@ -1,6 +1,6 @@
 using Kopernicus;
 
-namespace OblateAtmosphere;
+namespace AltitudeOblate;
 
 public class PQSMod_AltitudeOblate : PQSMod
 {

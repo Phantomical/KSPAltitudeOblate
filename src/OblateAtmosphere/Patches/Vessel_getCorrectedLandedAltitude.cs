@@ -1,7 +1,7 @@
 using System;
 using HarmonyLib;
 
-namespace OblateAtmosphere.Patches;
+namespace AltitudeOblate.Patches;
 
 [HarmonyPatch(typeof(Vessel), "getCorrectedLandedAltitude")]
 internal static class Vessel_getCorrectedLandedAltitude

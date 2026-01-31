@@ -3,7 +3,7 @@ using Kopernicus.ConfigParser.BuiltinTypeParsers;
 using Kopernicus.ConfigParser.Enumerations;
 using Kopernicus.Configuration.ModLoader;
 
-namespace OblateAtmosphere;
+namespace AltitudeOblate;
 
 [RequireConfigType(ConfigType.Node)]
 public class AltitudeOblate : ModLoader<PQSMod_AltitudeOblate>

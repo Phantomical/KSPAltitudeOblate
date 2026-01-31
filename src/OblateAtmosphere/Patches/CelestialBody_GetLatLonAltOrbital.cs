@@ -1,7 +1,7 @@
 using System;
 using HarmonyLib;
 
-namespace OblateAtmosphere.Patches;
+namespace AltitudeOblate.Patches;
 
 [HarmonyPatch(typeof(CelestialBody), nameof(CelestialBody.GetLatLonAltOrbital))]
 internal static class CelestialBody_GetLatLonAltOrbital

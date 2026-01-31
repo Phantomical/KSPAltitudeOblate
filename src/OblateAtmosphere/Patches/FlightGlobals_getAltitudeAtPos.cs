@@ -1,6 +1,6 @@
 using HarmonyLib;
 
-namespace OblateAtmosphere.Patches;
+namespace AltitudeOblate.Patches;
 
 [HarmonyPatch(typeof(FlightGlobals), nameof(FlightGlobals.getAltitudeAtPos))]
 internal static class FlightGlobals_getAltitudeAtPos
