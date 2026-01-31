@@ -1,8 +1,10 @@
+using System;
 using HarmonyLib;
 
 namespace AltitudeOblate.Patches;
 
-[HarmonyPatch(typeof(FlightGlobals), nameof(FlightGlobals.getUpAxis))]
+[HarmonyPatch(typeof(FlightGlobals), nameof(FlightGlobals.getUpAxis),
+    new Type[] { typeof(CelestialBody), typeof(Vector3d) })]
 internal static class FlightGlobals_getUpAxis
 {
     public static bool Prefix(CelestialBody body, Vector3d position, ref Vector3d __result)
