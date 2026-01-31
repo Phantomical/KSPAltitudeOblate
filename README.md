@@ -26,7 +26,7 @@ to make Kerbin oblate:
 {
     @PQS
     {
-        Mods
+        @Mods
         {
             AltitudeOblate
             {
