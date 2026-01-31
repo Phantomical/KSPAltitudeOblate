@@ -22,6 +22,15 @@
             <CKANIdentifier>Harmony2</CKANIdentifier>
             <Private>False</Private>
         </Reference>
+        <Reference Include="Kopernicus">
+            <HintPath>$(KSPRoot)\GameData\Kopernicus\Plugins\Kopernicus.dll</HintPath>
+            <CKANIdentifier>Kopernicus</CKANIdentifier>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Kopernicus.Parser">
+            <HintPath>$(KSPRoot)\GameData\Kopernicus\Plugins\Kopernicus.Parser.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
     </ItemGroup>
 
     <PropertyGroup>
