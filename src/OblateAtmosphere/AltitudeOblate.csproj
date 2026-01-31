@@ -14,6 +14,11 @@
 
     <ItemGroup>
         <PackageReference Include="KSPBuildTools" Version="0.0.4" />
+        <PackageReference Include="Krafs.Publicizer" Version="2.2.1" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Publicize Include="Assembly-CSharp" />
     </ItemGroup>
 
     <ItemGroup>

@@ -34,4 +34,32 @@ public static class OblateUtils
         double latRad = Math.Asin(sinLat);
         return GetSeaLevelRadius(body, latRad);
     }
+
+    /// <summary>
+    /// Computes the geodetic surface normal (true "up") for an oblate body at the
+    /// given world position. For spherical bodies, returns the radial direction.
+    /// </summary>
+    public static Vector3d GetGeodeticUp(CelestialBody body, Vector3d worldPos)
+    {
+        double f = body.scaledElipRadMult.z;
+        if (f == 1.0)
+            return (worldPos - body.position).normalized;
+
+        Vector3d relPos = worldPos - body.position;
+        // Convert to body-local coordinates (note the .xzy swizzle that KSP uses)
+        Vector3d local = body.BodyFrame.WorldToLocal(relPos.xzy);
+
+        // Geodetic normal on ellipsoid: scale each component by 1/axis²
+        // Equatorial axes are both body.Radius (a), polar axis is f*a (b)
+        double a = body.Radius;
+        double b = f * a;
+        double a2 = a * a;
+        double b2 = b * b;
+
+        Vector3d normal = new Vector3d(local.x / a2, local.y / a2, local.z / b2);
+        normal = normal.normalized;
+
+        // Transform back to world coordinates (inverse of the .xzy + WorldToLocal)
+        return body.BodyFrame.LocalToWorld(normal).xzy.normalized;
+    }
 }
