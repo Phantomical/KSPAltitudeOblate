@@ -4,7 +4,7 @@ using HarmonyLib;
 namespace OblateAtmosphere.Patches;
 
 [HarmonyPatch(typeof(CelestialBody), nameof(CelestialBody.GetLatLonAlt))]
-public static class CelestialBody_GetLatLonAlt
+internal static class CelestialBody_GetLatLonAlt
 {
     public static bool Prefix(
         CelestialBody __instance,

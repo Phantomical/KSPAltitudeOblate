@@ -4,7 +4,7 @@ using HarmonyLib;
 namespace OblateAtmosphere.Patches;
 
 [HarmonyPatch(typeof(Vessel), nameof(Vessel.PQSAltitude))]
-public static class Vessel_PQSAltitude
+internal static class Vessel_PQSAltitude
 {
     public static bool Prefix(Vessel __instance, ref double __result)
     {

@@ -8,7 +8,7 @@ namespace OblateAtmosphere.Patches;
     nameof(CelestialBody.GetRelSurfacePosition),
     new[] { typeof(double), typeof(double), typeof(double) }
 )]
-public static class CelestialBody_GetRelSurfacePosition
+internal static class CelestialBody_GetRelSurfacePosition
 {
     public static bool Prefix(
         CelestialBody __instance,

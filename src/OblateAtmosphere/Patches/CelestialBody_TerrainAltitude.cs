@@ -4,7 +4,7 @@ using HarmonyLib;
 namespace OblateAtmosphere.Patches;
 
 [HarmonyPatch(typeof(CelestialBody), nameof(CelestialBody.TerrainAltitude))]
-public static class CelestialBody_TerrainAltitude
+internal static class CelestialBody_TerrainAltitude
 {
     public static bool Prefix(
         CelestialBody __instance,

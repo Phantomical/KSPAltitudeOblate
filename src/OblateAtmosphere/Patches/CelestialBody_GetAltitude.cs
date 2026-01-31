@@ -4,7 +4,7 @@ using HarmonyLib;
 namespace OblateAtmosphere.Patches;
 
 [HarmonyPatch(typeof(CelestialBody), nameof(CelestialBody.GetAltitude))]
-public static class CelestialBody_GetAltitude
+internal static class CelestialBody_GetAltitude
 {
     public static bool Prefix(CelestialBody __instance, Vector3d worldPos, ref double __result)
     {
