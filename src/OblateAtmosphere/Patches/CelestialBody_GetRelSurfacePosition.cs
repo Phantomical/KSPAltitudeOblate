@@ -3,15 +3,14 @@ using HarmonyLib;
 
 namespace OblateAtmosphere.Patches;
 
-[HarmonyPatch(typeof(CelestialBody))]
+[HarmonyPatch(
+    typeof(CelestialBody),
+    nameof(CelestialBody.GetRelSurfacePosition),
+    new[] { typeof(double), typeof(double), typeof(double) }
+)]
 public static class CelestialBody_GetRelSurfacePosition
 {
-    [HarmonyPatch(
-        nameof(CelestialBody.GetRelSurfacePosition),
-        new[] { typeof(double), typeof(double), typeof(double) }
-    )]
-    [HarmonyPrefix]
-    public static bool Prefix3(
+    public static bool Prefix(
         CelestialBody __instance,
         double lat,
         double lon,
