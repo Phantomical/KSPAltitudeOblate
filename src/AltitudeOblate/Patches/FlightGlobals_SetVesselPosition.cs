@@ -41,7 +41,7 @@ internal static class FlightGlobals_SetVesselPosition
 
         return new CodeMatcher(instructions)
             .MatchStartForward(
-                new CodeMatch(OpCodes.Call, getSurfaceHeight)
+                new CodeMatch(i => i.Calls(getSurfaceHeight))
             )
             .ThrowIfInvalid(
                 "Could not find GetSurfaceHeight call in FlightGlobals.SetVesselPosition")
