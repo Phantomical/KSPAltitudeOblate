@@ -42,28 +42,14 @@ internal static class FlightGlobals_UpdateInformation
             nameof(FlightGlobals.currentMainBody)
         );
 
-        // Match the IL pattern for (vessel.position - body.position).normalized:
-        //
-        //   call      Vector3d.op_Subtraction(Vector3, Vector3d)
-        //   dup; pop
-        //   stloc.2
-        //   ldloca.s  2
-        //   call      Vector3d.get_normalized()
-        //   dup; pop
-        //
-        // The subsequent op_Implicit(Vector3d → Vector3) is left in place.
-        //
-        // Replaced with:
-        //   ldsfld    FlightGlobals.currentMainBody
-        //   call      GetUp(Vector3, Vector3d, CelestialBody) -> Vector3d
         return new CodeMatcher(instructions)
             .MatchStartForward(
-                new CodeMatch(i => i.Calls(subtractV3_V3d)),
+                new CodeMatch(OpCodes.Call, subtractV3_V3d),
                 new CodeMatch(OpCodes.Dup),
                 new CodeMatch(OpCodes.Pop),
                 new CodeMatch(i => i.IsStloc(null)),
                 new CodeMatch(i => i.IsLdloc(null)),
-                new CodeMatch(i => i.Calls(getNormalized))
+                new CodeMatch(OpCodes.Call, getNormalized)
             )
             .ThrowIfInvalid(
                 "Could not find (vessel.position - body.position).normalized pattern in FlightGlobals.UpdateInformation"

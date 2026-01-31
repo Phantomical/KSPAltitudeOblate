@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace AltitudeOblate;
 
@@ -34,6 +35,16 @@ public static class OblateUtils
         double latRad = Math.Asin(sinLat);
         return GetSeaLevelRadius(body, latRad);
     }
+
+    /// <summary>
+    /// Returns the spherical altitude (distance from body center minus equatorial
+    /// Radius). Used by buoyancy, which must match the spherical ocean mesh.
+    /// </summary>
+    public static double GetAltitudeAtPosSpherical(Vector3d position, CelestialBody body) =>
+        Vector3d.Distance(position, body.position) - body.Radius;
+
+    public static float GetAltitudeAtPosSpherical(Vector3 position, CelestialBody body) =>
+        (float)GetAltitudeAtPosSpherical(position, body);
 
     /// <summary>
     /// Computes the geodetic surface normal (true "up") for an oblate body at the

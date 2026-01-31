@@ -33,30 +33,20 @@ internal static class FlightGlobals_SetVesselPosition
 
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
-        var getSurfaceHeight = AccessTools.Method(typeof(PQS), nameof(PQS.GetSurfaceHeight),
-            [typeof(Vector3d)]);
+        var getSurfaceHeight = SymbolExtensions.GetMethodInfo(
+            () => default(PQS).GetSurfaceHeight(default(Vector3d))
+        );
         var radiusField = AccessTools.Field(typeof(CelestialBody), nameof(CelestialBody.Radius));
         var helper = SymbolExtensions.GetMethodInfo(() => GetRadius(default, default));
 
-        // Find the pattern:  call GetSurfaceHeight ... ldfld Radius ... sub
-        // Replace ldfld Radius with: pop; ldsfld currentMainBody; ldarg.3 (latitude); call GetRadius
-        //
-        // Actually the IL before ldfld Radius will load currentMainBody onto the stack.
-        // We need to replace that load + ldfld with our helper call.
-        // Pattern: ldsfld currentMainBody; ldfld Radius
-        // Replace with: ldsfld currentMainBody; ldarg.3; call GetRadius
-
-        var currentMainBody = AccessTools.Field(typeof(FlightGlobals),
-            nameof(FlightGlobals.currentMainBody));
-
         return new CodeMatcher(instructions)
             .MatchStartForward(
-                new CodeMatch(i => i.Calls(getSurfaceHeight))
+                new CodeMatch(OpCodes.Call, getSurfaceHeight)
             )
             .ThrowIfInvalid(
                 "Could not find GetSurfaceHeight call in FlightGlobals.SetVesselPosition")
             .MatchStartForward(
-                new CodeMatch(i => i.LoadsField(radiusField))
+                new CodeMatch(OpCodes.Ldfld, radiusField)
             )
             .ThrowIfInvalid(
                 "Could not find Radius field load after GetSurfaceHeight in FlightGlobals.SetVesselPosition")
