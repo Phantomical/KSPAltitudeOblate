@@ -21,15 +21,15 @@ public static class CelestialBody_GetLatLonAlt
         double magnitude = rPos.magnitude;
         rPos /= magnitude;
 
-        lat = Math.Asin(rPos.z) * (180.0 / Math.PI);
-        lon = Math.Atan2(rPos.y, rPos.x) * (180.0 / Math.PI);
+        double latRad = Math.Asin(rPos.z);
+        lat = latRad * UtilMath.Rad2Deg;
+        lon = Math.Atan2(rPos.y, rPos.x) * UtilMath.Rad2Deg;
 
         if (double.IsNaN(lat))
             lat = 0.0;
         if (double.IsNaN(lon))
             lon = 0.0;
 
-        double latRad = lat * (Math.PI / 180.0);
         alt = magnitude - OblateUtils.GetSeaLevelRadius(__instance, latRad);
         return false;
     }
