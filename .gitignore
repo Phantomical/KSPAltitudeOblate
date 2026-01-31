@@ -6,6 +6,9 @@
 # KSPBuildTools Output
 /GameData
 
+# Claude local settings
+/.claude/settings.local.json
+
 # User-specific files
 *.rsuser
 *.suo
