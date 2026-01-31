@@ -11,8 +11,10 @@ namespace AltitudeOblate.Patches;
 [HarmonyPatch(typeof(FlightGlobals), "UpdateInformation")]
 internal static class FlightGlobals_UpdateInformation
 {
-    private static readonly FieldInfo upwardsField =
-        AccessTools.Field(typeof(FlightGlobals), "upwards");
+    private static readonly FieldInfo upwardsField = AccessTools.Field(
+        typeof(FlightGlobals),
+        "upwards"
+    );
 
     public static void Postfix()
     {

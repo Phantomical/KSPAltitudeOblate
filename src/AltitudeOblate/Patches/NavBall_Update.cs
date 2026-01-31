@@ -41,7 +41,10 @@ internal static class NavBall_Update
             "op_Subtraction",
             [typeof(Vector3), typeof(Vector3d)]
         );
-        var getNormalized = AccessTools.PropertyGetter(typeof(Vector3d), nameof(Vector3d.normalized));
+        var getNormalized = AccessTools.PropertyGetter(
+            typeof(Vector3d),
+            nameof(Vector3d.normalized)
+        );
         var implicitV3dToV3 = AccessTools.Method(
             typeof(Vector3d),
             "op_Implicit",
