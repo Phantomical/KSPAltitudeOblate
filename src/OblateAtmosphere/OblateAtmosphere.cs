@@ -3,18 +3,12 @@ using UnityEngine;
 
 namespace OblateAtmosphere;
 
-[KSPAddon(KSPAddon.Startup.Flight, false)]
+[KSPAddon(KSPAddon.Startup.Instantly, once: true)]
 public class OblateAtmosphere : MonoBehaviour
 {
-    private static Harmony _harmony;
-
-    public void Start()
+    public void Awake()
     {
-        if (_harmony == null)
-        {
-            _harmony = new Harmony("OblateAtmosphere");
-            _harmony.PatchAll();
-            Debug.Log("[OblateAtmosphere] Harmony patches applied");
-        }
+        var harmony = new Harmony("OblateAtmosphere");
+        harmony.PatchAll();
     }
 }
