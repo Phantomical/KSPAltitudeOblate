@@ -62,7 +62,7 @@ internal static class FlightGlobals_SetVesselPosition
                 "Could not find Radius field load after GetSurfaceHeight in FlightGlobals.SetVesselPosition")
             .RemoveInstruction()
             .Insert(
-                new CodeInstruction(OpCodes.Ldarg_3),
+                new CodeInstruction(OpCodes.Ldarg_2),
                 new CodeInstruction(OpCodes.Call, helper)
             )
             .InstructionEnumeration();
