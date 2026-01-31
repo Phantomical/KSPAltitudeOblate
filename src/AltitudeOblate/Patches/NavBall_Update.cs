@@ -26,12 +26,12 @@ internal static class NavBall_Update
     /// The original code computed: (targetPos - bodyPos).normalized converted to Vector3.
     /// We replace that with the geodetic normal at targetPos.
     /// </summary>
-    public static Vector3 GetNavBallUp(Vector3 targetPos, Vector3d bodyPos, CelestialBody body)
+    public static Vector3d GetNavBallUp(Vector3 targetPos, Vector3d bodyPos, CelestialBody body)
     {
         if (body.scaledElipRadMult.z == 1.0)
-            return (Vector3)(((Vector3d)targetPos - bodyPos).normalized);
+            return ((Vector3d)targetPos - bodyPos).normalized;
 
-        return (Vector3)OblateUtils.GetGeodeticUp(body, (Vector3d)targetPos);
+        return OblateUtils.GetGeodeticUp(body, (Vector3d)targetPos);
     }
 
     static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -45,15 +45,10 @@ internal static class NavBall_Update
             typeof(Vector3d),
             nameof(Vector3d.normalized)
         );
-        var implicitV3dToV3 = AccessTools.Method(
-            typeof(Vector3d),
-            "op_Implicit",
-            [typeof(Vector3d)]
-        );
         var helper = SymbolExtensions.GetMethodInfo(() => GetNavBallUp(default, default, default));
 
-        // Match the IL pattern for (target.position - body.position).normalized
-        // cast to Vector3. The dup/pop pairs are from the obfuscated IL.
+        // Match the IL pattern for (target.position - body.position).normalized.
+        // The dup/pop pairs are from the obfuscated IL.
         //
         // Original IL:
         //   call      Vector3d.op_Subtraction(Vector3, Vector3d)
@@ -62,12 +57,12 @@ internal static class NavBall_Update
         //   ldloca.s  1
         //   call      Vector3d.get_normalized()
         //   dup; pop
-        //   call      Vector3d.op_Implicit(Vector3d)
-        //   dup; pop
+        //
+        // The subsequent op_Implicit(Vector3d → Vector3) is left in place.
         //
         // Replaced with:
         //   ldloc.0              ; push CelestialBody from local 0
-        //   call GetNavBallUp    ; (Vector3, Vector3d, CelestialBody) -> Vector3
+        //   call GetNavBallUp    ; (Vector3, Vector3d, CelestialBody) -> Vector3d
         return new CodeMatcher(instructions)
             .MatchStartForward(
                 new CodeMatch(i => i.Calls(subtractV3_V3d)),
@@ -75,12 +70,7 @@ internal static class NavBall_Update
                 new CodeMatch(OpCodes.Pop),
                 new CodeMatch(i => i.IsStloc(null)),
                 new CodeMatch(i => i.IsLdloc(null)),
-                new CodeMatch(i => i.Calls(getNormalized)),
-                new CodeMatch(OpCodes.Dup),
-                new CodeMatch(OpCodes.Pop),
-                new CodeMatch(i => i.Calls(implicitV3dToV3)),
-                new CodeMatch(OpCodes.Dup),
-                new CodeMatch(OpCodes.Pop)
+                new CodeMatch(i => i.Calls(getNormalized))
             )
             .ThrowIfInvalid(
                 "Could not find (target.position - body.position).normalized pattern in NavBall.Update"
@@ -88,7 +78,7 @@ internal static class NavBall_Update
             .Repeat(matcher =>
             {
                 matcher
-                    .RemoveInstructions(11)
+                    .RemoveInstructions(6)
                     .Insert(
                         new CodeInstruction(OpCodes.Ldloc_0),
                         new CodeInstruction(OpCodes.Call, helper)
