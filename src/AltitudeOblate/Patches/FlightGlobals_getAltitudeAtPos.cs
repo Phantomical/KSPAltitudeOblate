@@ -9,7 +9,7 @@ internal static class FlightGlobals_getAltitudeAtPos
 {
     public static bool Prefix(Vector3d position, CelestialBody body, ref double __result)
     {
-        if (body.scaledElipRadMult.z == 1.0)
+        if (OblateUtils.IsSpherical(body))
             return true;
 
         __result = body.GetAltitude(position);

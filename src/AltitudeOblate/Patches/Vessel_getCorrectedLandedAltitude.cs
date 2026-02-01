@@ -15,7 +15,7 @@ internal static class Vessel_getCorrectedLandedAltitude
         ref double __result
     )
     {
-        if (body.scaledElipRadMult.z == 1.0)
+        if (OblateUtils.IsSpherical(body))
             return true;
 
         Vector3d relSurfaceNVector = body.GetRelSurfaceNVector(lat, lon);

@@ -8,7 +8,7 @@ internal static class Vessel_PQSAltitude
 {
     public static bool Prefix(Vessel __instance, ref double __result)
     {
-        if (__instance.mainBody.scaledElipRadMult.z == 1.0)
+        if (OblateUtils.IsSpherical(__instance.mainBody))
             return true;
 
         if (__instance.mainBody.pqsController == null)

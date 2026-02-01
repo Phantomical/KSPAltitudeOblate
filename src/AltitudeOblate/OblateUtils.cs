@@ -5,14 +5,16 @@ namespace AltitudeOblate;
 
 public static class OblateUtils
 {
+    public static bool IsSpherical(CelestialBody body) =>
+        body.scaledElipRadMult.x == 1.0 && body.scaledElipRadMult.z == 1.0;
+
     public static double GetSeaLevelRadius(CelestialBody body, double latitudeRad)
     {
-        double f = body.scaledElipRadMult.z;
-        if (f == 1.0)
+        if (IsSpherical(body))
             return body.Radius;
 
-        double a = body.Radius;
-        double b = f * a;
+        double a = body.scaledElipRadMult.x * body.Radius;
+        double b = body.scaledElipRadMult.z * body.Radius;
         double a2 = a * a;
         double b2 = b * b;
         double cos = Math.Cos(latitudeRad);
@@ -28,7 +30,7 @@ public static class OblateUtils
         double magnitude
     )
     {
-        if (body.scaledElipRadMult.z == 1.0)
+        if (IsSpherical(body))
             return body.Radius;
 
         double sinLat = localDir.z / magnitude;
@@ -52,8 +54,7 @@ public static class OblateUtils
     /// </summary>
     public static Vector3d GetGeodeticUp(CelestialBody body, Vector3d worldPos)
     {
-        double f = body.scaledElipRadMult.z;
-        if (f == 1.0)
+        if (IsSpherical(body))
             return (worldPos - body.position).normalized;
 
         Vector3d relPos = worldPos - body.position;
@@ -61,9 +62,8 @@ public static class OblateUtils
         Vector3d local = body.BodyFrame.WorldToLocal(relPos.xzy);
 
         // Geodetic normal on ellipsoid: scale each component by 1/axis²
-        // Equatorial axes are both body.Radius (a), polar axis is f*a (b)
-        double a = body.Radius;
-        double b = f * a;
+        double a = body.scaledElipRadMult.x * body.Radius;
+        double b = body.scaledElipRadMult.z * body.Radius;
         double a2 = a * a;
         double b2 = b * b;
 

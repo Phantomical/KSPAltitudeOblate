@@ -28,7 +28,7 @@ internal static class NavBall_Update
     /// </summary>
     public static Vector3d GetNavBallUp(Vector3 targetPos, Vector3d bodyPos, CelestialBody body)
     {
-        if (body.scaledElipRadMult.z == 1.0)
+        if (OblateUtils.IsSpherical(body))
             return ((Vector3d)targetPos - bodyPos).normalized;
 
         return OblateUtils.GetGeodeticUp(body, (Vector3d)targetPos);

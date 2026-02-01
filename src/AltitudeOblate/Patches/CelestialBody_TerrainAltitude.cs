@@ -14,7 +14,7 @@ internal static class CelestialBody_TerrainAltitude
         ref double __result
     )
     {
-        if (__instance.scaledElipRadMult.z == 1.0)
+        if (OblateUtils.IsSpherical(__instance))
             return true;
 
         if (__instance.pqsController == null)

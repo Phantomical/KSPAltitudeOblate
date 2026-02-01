@@ -18,7 +18,7 @@ internal static class CelestialBody_GetRelSurfacePosition
         ref Vector3d __result
     )
     {
-        if (__instance.scaledElipRadMult.z == 1.0)
+        if (OblateUtils.IsSpherical(__instance))
             return true;
 
         double latRad = lat * UtilMath.Deg2Rad;

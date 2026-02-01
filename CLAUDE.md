@@ -14,7 +14,7 @@ Requires `KSPRoot` MSBuild property pointing to a KSP install with Harmony and K
 
 ## Key conventions
 
-- All Harmony patches must check `body.scaledElipRadMult.z == 1.0` to short-circuit for spherical bodies (preserves stock behavior and performance).
+- All Harmony patches must use `OblateUtils.IsSpherical(body)` to short-circuit for spherical bodies (preserves stock behavior and performance).
 - Prefix patches return `false` to skip the original method; return `true` to run it (for the spherical fast-path).
 - Transpiler patches use `CodeMatcher` from Harmony to replace IL instructions.
-- The oblateness factor is stored on `CelestialBody.scaledElipRadMult.z` as `polarRadius / equatorialRadius`, set during PQS initialization.
+- `CelestialBody.scaledElipRadMult` stores the ellipsoid axes as ratios to `body.Radius`: `.x` and `.y` = `equatorialRadius / body.Radius`, `.z` = `polarRadius / body.Radius`. Both default to 1.0 if unset.

@@ -8,7 +8,7 @@ internal static class CelestialBody_GetAltitude
 {
     public static bool Prefix(CelestialBody __instance, Vector3d worldPos, ref double __result)
     {
-        if (__instance.scaledElipRadMult.z == 1.0)
+        if (OblateUtils.IsSpherical(__instance))
             return true;
 
         Vector3d relPos = worldPos - __instance.position;

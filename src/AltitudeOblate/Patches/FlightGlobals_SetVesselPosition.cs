@@ -24,7 +24,7 @@ internal static class FlightGlobals_SetVesselPosition
 {
     public static double GetRadius(CelestialBody body, double latitude)
     {
-        if (body.scaledElipRadMult.z == 1.0)
+        if (OblateUtils.IsSpherical(body))
             return body.Radius;
 
         double latRad = latitude * UtilMath.Deg2Rad;

@@ -14,7 +14,7 @@ internal static class CelestialBody_GetLatLonAltOrbital
         ref double alt
     )
     {
-        if (__instance.scaledElipRadMult.z == 1.0)
+        if (OblateUtils.IsSpherical(__instance))
             return true;
 
         Vector3d rPos = __instance.BodyFrame.WorldToLocal(worldPos);

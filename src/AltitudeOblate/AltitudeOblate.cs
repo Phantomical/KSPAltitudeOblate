@@ -14,4 +14,11 @@ public class AltitudeOblate : ModLoader<PQSMod_AltitudeOblate>
         get { return Mod.polarRadius; }
         set { Mod.polarRadius = value; }
     }
+
+    [ParserTarget("equatorialRadius")]
+    public NumericParser<double> EquatorialRadius
+    {
+        get { return Mod.equatorialRadius; }
+        set { Mod.equatorialRadius = value; }
+    }
 }

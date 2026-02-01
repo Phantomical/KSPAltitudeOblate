@@ -19,7 +19,7 @@ internal static class FlightGlobals_UpdateInformation
 {
     public static Vector3d GetUp(Vector3 vesselPos, Vector3d bodyPos, CelestialBody body)
     {
-        if (body.scaledElipRadMult.z == 1.0)
+        if (OblateUtils.IsSpherical(body))
             return ((Vector3d)vesselPos - bodyPos).normalized;
 
         return OblateUtils.GetGeodeticUp(body, (Vector3d)vesselPos);
