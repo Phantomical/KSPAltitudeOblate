@@ -44,7 +44,7 @@ public static class OblateUtils
         Vector3d.Distance(position, body.position) - body.Radius;
 
     public static float GetAltitudeAtPosSpherical(Vector3 position, CelestialBody body) =>
-        (float)GetAltitudeAtPosSpherical(position, body);
+        (float)GetAltitudeAtPosSpherical((Vector3d)position, body);
 
     /// <summary>
     /// Computes the geodetic surface normal (true "up") for an oblate body at the
